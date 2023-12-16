@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://dogiimmm2loh4"]
+[gd_scene load_steps=9 format=3 uid="uid://dogiimmm2loh4"]
 
 [ext_resource type="Script" path="res://assets/scripts/level.gd" id="1_cwcgv"]
 [ext_resource type="PackedScene" uid="uid://copofbsybdlra" path="res://scenes/enemy.tscn" id="2_kchaq"]
 [ext_resource type="Texture2D" uid="uid://c2ncreia21a46" path="res://assets/background/layered/bg-back.png" id="2_vh64p"]
+[ext_resource type="PackedScene" uid="uid://4ubnmt386m1" path="res://scenes/GUI.tscn" id="3_jpqub"]
 [ext_resource type="Texture2D" uid="uid://i8vs81f2fdmq" path="res://assets/background/layered/bg-stars.png" id="3_n5q7o"]
 [ext_resource type="Texture2D" uid="uid://dv6eulnhe7ad8" path="res://assets/background/layered/bg-planet.png" id="4_yotjf"]
 [ext_resource type="PackedScene" uid="uid://c8ahlvlnegpms" path="res://scenes/player.tscn" id="5_tant2"]
@@ -16,6 +17,8 @@ point_count = 5
 [node name="Level" type="Node2D" groups=["Level"]]
 script = ExtResource("1_cwcgv")
 enemy = ExtResource("2_kchaq")
+
+[node name="GUI" parent="." instance=ExtResource("3_jpqub")]
 
 [node name="Background" type="Node" parent="."]
 

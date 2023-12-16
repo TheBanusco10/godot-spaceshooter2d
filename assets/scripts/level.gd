@@ -2,6 +2,8 @@ extends Node2D
 
 @export var enemy : PackedScene
 
+var random_spawn_time : RandomNumberGenerator = RandomNumberGenerator.new()
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	GLOBAL.score = 0
@@ -12,7 +14,7 @@ func _ready():
 func _process(delta):
 	move_parallax_bg(delta)
 	
-	$EnemySpawn/PathFollow2D.set_progress($EnemySpawn/PathFollow2D.get_progress() + 80 * delta)
+	$EnemySpawn/PathFollow2D.set_progress($EnemySpawn/PathFollow2D.get_progress() + random_spawn_time.randi_range(10, 80) * delta)
 	
 func move_parallax_bg(delta):
 	$Background/Back.scroll_base_offset -= Vector2(1, 0) * 8 * delta

@@ -25,6 +25,8 @@ GLOBAL="*res://assets/scripts/global.gd"
 window/size/viewport_width=272
 window/size/viewport_height=160
 window/size/resizable=false
+window/size/window_width_override=816
+window/size/window_height_override=480
 window/stretch/mode="viewport"
 
 [input]
