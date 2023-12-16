@@ -1,0 +1,76 @@
+[gd_scene load_steps=8 format=3 uid="uid://dogiimmm2loh4"]
+
+[ext_resource type="Script" path="res://assets/scripts/level.gd" id="1_cwcgv"]
+[ext_resource type="PackedScene" uid="uid://copofbsybdlra" path="res://scenes/enemy.tscn" id="2_kchaq"]
+[ext_resource type="Texture2D" uid="uid://c2ncreia21a46" path="res://assets/background/layered/bg-back.png" id="2_vh64p"]
+[ext_resource type="Texture2D" uid="uid://i8vs81f2fdmq" path="res://assets/background/layered/bg-stars.png" id="3_n5q7o"]
+[ext_resource type="Texture2D" uid="uid://dv6eulnhe7ad8" path="res://assets/background/layered/bg-planet.png" id="4_yotjf"]
+[ext_resource type="PackedScene" uid="uid://c8ahlvlnegpms" path="res://scenes/player.tscn" id="5_tant2"]
+
+[sub_resource type="Curve2D" id="Curve2D_fov70"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 272, 0, 0, 0, 0, 0, 272, 159, 0, 0, 0, 0, 294.68, 159, 0, 0, 0, 0, 294.68, 0, 0, 0, 0, 0, 272, 0)
+}
+point_count = 5
+
+[node name="Level" type="Node2D" groups=["Level"]]
+script = ExtResource("1_cwcgv")
+enemy = ExtResource("2_kchaq")
+
+[node name="Background" type="Node" parent="."]
+
+[node name="Back" type="ParallaxBackground" parent="Background"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Background/Back"]
+motion_mirroring = Vector2(272, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/Back/ParallaxLayer"]
+texture = ExtResource("2_vh64p")
+centered = false
+
+[node name="Stars" type="ParallaxBackground" parent="Background"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Background/Stars"]
+motion_mirroring = Vector2(272, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/Stars/ParallaxLayer"]
+texture = ExtResource("3_n5q7o")
+centered = false
+
+[node name="Planet_1" type="ParallaxBackground" parent="Background"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Background/Planet_1"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/Planet_1/ParallaxLayer"]
+texture = ExtResource("4_yotjf")
+centered = false
+
+[node name="Planet_2" type="ParallaxBackground" parent="Background"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Background/Planet_2"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/Planet_2/ParallaxLayer"]
+texture = ExtResource("4_yotjf")
+centered = false
+offset = Vector2(272, 0)
+flip_v = true
+
+[node name="EnemySpawn" type="Path2D" parent="."]
+position = Vector2(164.063, 0)
+scale = Vector2(0.396826, 1)
+curve = SubResource("Curve2D_fov70")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="EnemySpawn"]
+position = Vector2(272, 0)
+rotation = 1.5708
+
+[node name="Settings" type="Node" parent="."]
+
+[node name="Timer" type="Timer" parent="Settings"]
+wait_time = 1.5
+autostart = true
+
+[node name="Player" parent="." groups=["Level"] instance=ExtResource("5_tant2")]
+position = Vector2(40, 86)
+
+[connection signal="timeout" from="Settings/Timer" to="." method="_on_timer_timeout"]

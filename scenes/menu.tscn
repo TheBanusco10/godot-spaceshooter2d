@@ -1,0 +1,62 @@
+[gd_scene load_steps=3 format=3 uid="uid://bm010rch4er2a"]
+
+[ext_resource type="Script" path="res://assets/scripts/menu.gd" id="1_2xfyu"]
+[ext_resource type="Texture2D" uid="uid://82cumjie6usg" path="res://assets/background/bg-preview-big.png" id="1_v2kiv"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2xfyu")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_v2kiv")
+expand_mode = 3
+
+[node name="Main" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.0
+offset_top = -20.0
+offset_right = 43.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="VBoxContainer" parent="Main"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Main/Title"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Shooter 2D"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Main"]
+layout_mode = 2
+alignment = 1
+
+[node name="Play" type="Button" parent="Main/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Play"
+
+[node name="Quit" type="Button" parent="Main/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Quit"
+
+[connection signal="pressed" from="Main/HBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Main/HBoxContainer/Quit" to="." method="_on_quit_pressed"]
