@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bm010rch4er2a"]
+[gd_scene load_steps=4 format=3 uid="uid://bm010rch4er2a"]
 
 [ext_resource type="Script" path="res://assets/scripts/menu.gd" id="1_2xfyu"]
+[ext_resource type="Theme" uid="uid://ddym4ifd1v2kw" path="res://assets/themes/main_theme.tres" id="1_56b37"]
 [ext_resource type="Texture2D" uid="uid://82cumjie6usg" path="res://assets/background/bg-preview-big.png" id="1_v2kiv"]
 
 [node name="Menu" type="Control"]
@@ -10,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_56b37")
 script = ExtResource("1_2xfyu")
 
 [node name="TextureRect" type="TextureRect" parent="."]

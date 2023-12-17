@@ -26,9 +26,13 @@ func _on_area_entered(area):
 
 func _on_body_entered(body):
 	if body is Player:
-		body.queue_free()
 		explosion_control()
-		GLOBAL.credits -= 1
+		
+		if ! GLOBAL.is_shield_active:
+			GLOBAL.credits -= 1
+			
+			if GLOBAL.credits <= 0:
+				body.queue_free()
 
 func _on_screen_exited():
 	queue_free()

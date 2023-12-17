@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c8ahlvlnegpms"]
+[gd_scene load_steps=17 format=3 uid="uid://c8ahlvlnegpms"]
 
 [ext_resource type="Script" path="res://assets/scripts/player.gd" id="1_d47g6"]
 [ext_resource type="Texture2D" uid="uid://bf8ny0akp446w" path="res://assets/sprites/player/player2.png" id="1_fy3t5"]
@@ -7,6 +7,11 @@
 [ext_resource type="Texture2D" uid="uid://dgj5pochwfkli" path="res://assets/sprites/player/player3.png" id="3_vq7ct"]
 [ext_resource type="Texture2D" uid="uid://bg54chcq6035j" path="res://assets/sprites/flash/flash.png" id="4_d6wka"]
 [ext_resource type="AudioStream" uid="uid://jvqmh2mb5p8n" path="res://assets/sounds/shot.wav" id="6_k4usn"]
+[ext_resource type="Texture2D" uid="uid://42uufo6stmq5" path="res://assets/sprites/hit/hit1.png" id="8_tr8t3"]
+[ext_resource type="Texture2D" uid="uid://btplstruad825" path="res://assets/sprites/hit/hit2.png" id="9_j6s55"]
+[ext_resource type="Texture2D" uid="uid://cauy318ivo42q" path="res://assets/sprites/hit/hit3.png" id="10_7gc5g"]
+[ext_resource type="Texture2D" uid="uid://cgu64hn1chyeh" path="res://assets/sprites/hit/hit4.png" id="11_wlvcw"]
+[ext_resource type="Script" path="res://assets/scripts/shield.gd" id="12_26wje"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_54yuf"]
 animations = [{
@@ -52,6 +57,54 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vjgl8"]
 size = Vector2(26, 9)
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_jxd5d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_wlvcw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_7gc5g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_j6s55")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_tr8t3")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"Disable",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_tr8t3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_j6s55")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_7gc5g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_wlvcw")
+}],
+"loop": false,
+"name": &"Shield",
+"speed": 8.0
+}]
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_d47g6")
 shot = ExtResource("2_etvc2")
@@ -79,3 +132,22 @@ position = Vector2(13, 0)
 [node name="AudioShot" type="AudioStreamPlayer" parent="Settings"]
 stream = ExtResource("6_k4usn")
 volume_db = -25.0
+
+[node name="Powers" type="Node2D" parent="."]
+
+[node name="ShieldContainer" type="Node2D" parent="Powers"]
+
+[node name="Shield" type="AnimatedSprite2D" parent="Powers/ShieldContainer"]
+unique_name_in_owner = true
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_jxd5d")
+animation = &"Disable"
+autoplay = "Idle"
+script = ExtResource("12_26wje")
+
+[node name="ShieldTimer" type="Timer" parent="Powers/ShieldContainer"]
+unique_name_in_owner = true
+wait_time = 2.0
+
+[connection signal="shield_activated" from="." to="Powers/ShieldContainer/Shield" method="_on_player_shield_activated"]
+[connection signal="timeout" from="Powers/ShieldContainer/ShieldTimer" to="Powers/ShieldContainer/Shield" method="_on_shield_timer_timeout"]

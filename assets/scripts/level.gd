@@ -7,7 +7,7 @@ var random_spawn_time : RandomNumberGenerator = RandomNumberGenerator.new()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	GLOBAL.score = 0
-	GLOBAL.credits = 1
+	GLOBAL.credits = 3
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

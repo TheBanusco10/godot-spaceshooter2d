@@ -1,6 +1,8 @@
 extends CharacterBody2D
 class_name Player
 
+signal shield_activated
+
 @export var shot : PackedScene
 
 @onready var screensize = get_viewport_rect().size
@@ -14,6 +16,9 @@ func _process(_delta):
 func _input(event):
 	if event.is_action_pressed("ui_accept"):
 		shoot_control()
+	
+	if event.is_action_pressed("shield_power"):
+		shield_activated.emit()
 
 func sprite_control() -> void:
 	var currentAxis : Vector2 = GLOBAL.get_axis()
@@ -40,5 +45,4 @@ func shoot_control() -> void:
 	
 	var shotInstance = shot.instantiate()
 	shotInstance.global_position = $Settings/ShootSpawn.global_position
-	# add_child(shotInstance) Adding child to the Player scene
 	get_tree().call_group("Level", "add_child", shotInstance)
